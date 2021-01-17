@@ -3,6 +3,7 @@
 cd /home/rails/app
 
 bundle install
+yarn install
 
 dockerize -wait tcp://postgres:5432 -timeout 2700s -wait-retry-interval 10s
 
