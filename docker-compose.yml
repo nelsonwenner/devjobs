@@ -4,24 +4,27 @@ services:
   rails-app:
     build: .
     container_name: rails-container
-    working_dir: /home/rails/app
+    working_dir: /usr/src/app
     entrypoint: ./docker/entrypoint.sh
     volumes:
-      - ./:/home/rails/app
+      - ./:/usr/src/app
+      - gems:/bundles
     ports: 
       - "3333:3333"
     depends_on: 
       - postgres
+    stdin_open: true
+    tty: true
     networks:
       - app-network
-
+  
   postgres:
     container_name: postgres-container
     image: library/postgres:9.6-alpine
     ports: 
       - "5431:5432"
     volumes: 
-      - ./postgres:/var/lib/postgresql/data
+      - postgres:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root@123
@@ -37,6 +40,10 @@ services:
     restart: always
     networks: 
       - app-network
+
+volumes:
+  gems:
+  postgres:
 
 networks:
   app-network:
