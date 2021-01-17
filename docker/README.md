@@ -1,6 +1,6 @@
 <h1 align="center"> Docker Scripts </h1>
 
-## thinking: What's the point?
+## :thinking: What's the point?
 * Setting up the devjobs app on your local machine is quick and easy with the aid of Docker and Docker Compose.
 * Docker provides a common virtual environment available to all developers and resolves the infamous "but it works on my machine" problem.
 * Use the scripts in this directory to execute tasks in Docker.  Please note that these scripts are intended to be executed from this app's root directory.  These scripts allow you to bypass the need to keep typing "docker-compose run rails-app".
