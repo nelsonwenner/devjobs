@@ -13,7 +13,7 @@ class User < ApplicationRecord
       reset_password_sent_at: Time.current
     )
   end
-
+  
   # Check if password token is valid.
   #
   # @return [Boolean]
