@@ -2,6 +2,10 @@
 
 cd /usr/src/app
 
+if [ -f tmp/pids/server.pid ]; then
+  rm -f tmp/pids/server.pid
+fi
+
 dockerize -wait tcp://postgres:5432 -timeout 2700s -wait-retry-interval 10s
 
 (bundle check || bundle install)
