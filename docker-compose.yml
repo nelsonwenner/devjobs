@@ -32,7 +32,7 @@ services:
     restart: always
     networks: 
       - app-network
-
+    
   adminer:
     container_name: adminer-container
     image: adminer
