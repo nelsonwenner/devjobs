@@ -42,3 +42,6 @@ yarn-debug.log*
 
 # Ignore postgres
 postgres/
+
+# Ignore application configuration
+/config/application.yml
