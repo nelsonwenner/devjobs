@@ -17,14 +17,7 @@ services:
     networks:
       - app-network
     command: >
-      bash -c "dockerize -wait tcp://postgres:5432 
-              -timeout 2700s -wait-retry-interval 10s &&
-               rm -f tmp/pids/server.pid &&
-               (bundle check || bundle install) &&
-               yarn install &&
-               bundle exec rails db:create &&
-               bundle exec rails db:migrate &&
-               bundle exec rails s -p 3000 -b '0.0.0.0'"
+      bash -c "./docker/entrypoint.sh"
   
   postgres:
     container_name: postgres-container
