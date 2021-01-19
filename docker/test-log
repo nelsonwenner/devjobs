@@ -15,3 +15,11 @@ docker-compose run rails-app bundle exec rspec spec
 echo '--------------------------------------------------------'
 echo 'END: docker-compose run rails-app bundle exec rspec spec'
 echo '--------------------------------------------------------'
+
+echo '--------------------------'
+echo 'BEGIN: docker-compose down'
+echo '--------------------------'
+docker-compose down
+echo '------------------------'
+echo 'END: docker-compose down'
+echo '------------------------'
