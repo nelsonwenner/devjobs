@@ -4,7 +4,7 @@ class User < ApplicationRecord
   has_one :company, dependent: :destroy
   has_many :applicant, dependent: :destroy
   
-  validates_presence_of :username, :email, :password, on: :create
+  validates_presence_of :username, :email, :password_digest, on: :create
   validates_uniqueness_of :email
   
   # Generate a new password reset token for a user.
