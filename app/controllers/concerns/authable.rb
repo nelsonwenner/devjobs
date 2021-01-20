@@ -1,6 +1,8 @@
 module Authable
   extend ActiveSupport::Concern
   
+  # Set action gives function current_user
+  #
   included do
     before_action :current_user
   end
@@ -14,7 +16,7 @@ module Authable
     @current_user ||= User.find(session[:user_id])
   end
   
-  # If not exists a current_user.
+  # If not exists a current_user return json.
   #
   def authenticate
     render json: { error: 'Access Denied' }, status: 401 unless current_user
