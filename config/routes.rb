@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
   root 'pages#index'
-
+  
   namespace :api do
     namespace :v1 do
       resources :auth, only: %i[create] do
         collection do
-          get 'me', to: 'auth#logged_in'
-          delete 'logout', to: 'auth#logout'
+          get 'me', to: 'auths#logged_in'
+          delete 'logout', to: 'auths#logout'
         end
       end
     end
