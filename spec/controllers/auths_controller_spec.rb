@@ -26,5 +26,18 @@ RSpec.describe ::Api::V1::AuthsController, type: :controller do
         status: 'error', logged_in: false 
       })
     end
+    
+    it 'Should return a json with current user logged_in true' do
+      session[:user_id] = user.id
+      response = get :logged_in, params: { 
+        email: user.email, 
+        password: '123456' 
+      }
+      expect(eval(response.body)).to eq({ 
+        username: user.username, 
+        email: user.email, 
+        logged_in: true
+      })
+    end
   end
 end
