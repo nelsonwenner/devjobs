@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   
   namespace :api do
     namespace :v1 do
-      resources :auth, only: %i[create] do
+      resources :auths, only: %i[create] do
         collection do
           get 'me', to: 'auths#logged_in'
           delete 'logout', to: 'auths#logout'
