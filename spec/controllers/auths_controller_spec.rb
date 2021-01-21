@@ -19,6 +19,16 @@ RSpec.describe ::Api::V1::AuthsController, type: :controller do
       })
     end
 
+    it 'Should not accomplish login return a JSON with error User not found' do
+      response = post :create, params: { 
+        user: {
+          email: 'invalid@email.com', 
+          password: '123456'
+        } 
+      }
+      expect(eval(response.body)).to eq({errors: 'User not found'})
+    end
+
     it 'Should not accomplish login return a JSON with status error and logged_in false' do
       response = post :create, params: { 
         user: {
