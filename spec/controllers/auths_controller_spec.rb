@@ -39,5 +39,14 @@ RSpec.describe ::Api::V1::AuthsController, type: :controller do
         logged_in: true
       })
     end
+    
+    it 'Should accomplish logout return a json with and logged_in false' do
+      session[:user_id] = user.id
+      response = delete :logout, params: { 
+        email: user.email, 
+        password: '123456' 
+      }
+      expect(eval(response.body)).to eq({ logged_in: false })
+    end
   end
 end
