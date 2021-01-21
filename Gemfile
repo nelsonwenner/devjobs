@@ -20,6 +20,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_bot_rails'
   gem 'database_cleaner-active_record'
+  gem 'rails-controller-testing'
   gem 'shoulda-matchers', '~> 4.0'
   gem 'awesome_print'
   gem 'pry-rails'
