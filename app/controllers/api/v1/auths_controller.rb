@@ -1,12 +1,12 @@
 module Api
   module V1
-    class AuthController < ApiController
+    class AuthsController < ApiController
       before_action :authenticate, only: [:logout]
       
       def create
-        user = User.find_by(email: params[:user][:email])
+        user = User.find_by(email: params[:email])
        
-        if user && user.authenticate(params[:user][:password])
+        if user && user.authenticate(params[:password])
           session[:user_id] = user.id
           render json: { status: :success, logged_in: true }, status: 204
         else
