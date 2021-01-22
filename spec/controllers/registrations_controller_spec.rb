@@ -12,5 +12,13 @@ RSpec.describe ::Api::V1::RegistrationsController, type: :controller do
         }.to change(User, :count).by(1)
       end
     end
+
+    context 'With not valid attributes' do
+      it 'Should not be able to create a new user' do
+        expect{ 
+          post :create, params: { user: invalid_user }
+        }.to change(User, :count).by(0)
+      end
+    end
   end
 end
