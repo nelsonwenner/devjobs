@@ -3,11 +3,9 @@ FactoryBot.define do
     name { Faker::Company.name }
     url { Faker::Internet.url(host: 'example.com') }
     brand { 
-      Faker::Avatar.image(
-        slug: "my-own-slug", 
-        size: "50x50", 
-        format: "jpg"
-      ) 
+      Rack::Test::UploadedFile.new(
+        Rails.root.join('app', 'assets', 'images', 'test', 'rails-logo.png')
+      )
     }
   end
 end
