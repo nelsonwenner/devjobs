@@ -26,9 +26,10 @@ ActiveRecord::Schema.define(version: 2021_01_19_143403) do
     t.index ["position_id"], name: "index_applicants_on_position_id"
     t.index ["user_id"], name: "index_applicants_on_user_id"
   end
-
+  
   create_table "companies", force: :cascade do |t|
     t.string "name"
+    t.string "slug"
     t.string "url"
     t.string "brand"
     t.bigint "user_id", null: false
