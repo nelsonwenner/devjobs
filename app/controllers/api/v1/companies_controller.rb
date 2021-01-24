@@ -1,7 +1,12 @@
 module Api
   module V1
     class CompaniesController < ApiController
-      before_action :authenticate, only: [:create]
+      before_action :set_company, only: [:show]
+      before_action :authenticate
+      
+      def show
+        render status: 200, json: serializer(@company)
+      end
       
       def create
         @company = Company.new(
@@ -19,6 +24,10 @@ module Api
       end
 
       private
+      
+      def set_company
+        @company = Company.where(slug: params[:slug]).first! or not_found
+      end
       
       def company_params
         params.require(:company).permit(:name, :url)
