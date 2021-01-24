@@ -7,10 +7,10 @@ module Api
         @company = Company.new(
           name: company_params[:name],
           url: company_params[:url],
-          brand: params[:brand],
+          brand: params[:company][:brand],
           user: current_user
         )
-
+        
         if @company.save
           render status: 201, json: serializer(@company)
         else
@@ -29,7 +29,7 @@ module Api
           .new(records, options)
           .serialized_json
       end
-
+      
       def errors(record)
         { errors: record.errors.messages }
       end
