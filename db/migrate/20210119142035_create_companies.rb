@@ -4,9 +4,8 @@ class CreateCompanies < ActiveRecord::Migration[6.0]
       t.string :name
       t.string :slug
       t.string :url
-      t.string :brand
       t.references :user, null: false, foreign_key: true
-      
+
       t.timestamps
     end
   end
