@@ -22,11 +22,11 @@ module Api
           render status: 400, json: errors(@company)
         end
       end
-
+      
       private
       
       def set_company
-        @company = Company.where(slug: params[:slug]).first! or not_found
+        @company = Company.find(params[:id]) or not_found
       end
       
       def company_params
