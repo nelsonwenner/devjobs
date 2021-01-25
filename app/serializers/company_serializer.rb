@@ -1,7 +1,7 @@
 class CompanySerializer
   include FastJsonapi::ObjectSerializer
-
-  attributes :slug, :name, :url, :brand
+  
+  attributes :name, :url, :brand
   
   attribute :brand do |object|
     if object.brand.attached?
