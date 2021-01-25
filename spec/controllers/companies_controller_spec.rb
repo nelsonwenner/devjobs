@@ -80,5 +80,19 @@ RSpec.describe ::Api::V1::CompaniesController, type: :controller do
         ).to eq(valid_company[:url])
       }
     end
+    
+    context 'when attributes are invalid' do
+      let(:invalid_company_name) { attributes_for(:company, name: nil) }
+      let(:invalid_company_url) { attributes_for(:company, url: nil) }
+      
+      it 'with invalid name' do 
+        response = put :update, params: { 
+          id: company.id, company: invalid_company_name
+        }
+        expect(eval(response.body)).to eq({
+          'errors':{'name':["can't be blank"]}
+        })
+      end
+    end
   end
 end
