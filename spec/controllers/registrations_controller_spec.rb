@@ -7,7 +7,7 @@ RSpec.describe ::Api::V1::RegistrationsController, type: :controller do
     let(:invalid_user_email) { attributes_for(:user, email: nil) }
     let(:valid_user) { attributes_for(:user) }
     
-    context 'With valid attributes' do
+    context 'when attributes are valid' do
       it 'Should be able to create a new user' do
         expect{ 
           post :create, params: { user: valid_user }
@@ -15,7 +15,7 @@ RSpec.describe ::Api::V1::RegistrationsController, type: :controller do
       end
     end
 
-    context 'With not valid attributes' do
+    context 'when attributes are invalid' do
       it {
         expect{ 
           post :create, params: { user: invalid_user_username }

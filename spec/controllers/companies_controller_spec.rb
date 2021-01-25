@@ -11,7 +11,7 @@ RSpec.describe ::Api::V1::CompaniesController, type: :controller do
       session[:user_id] = user.id
     end
 
-    context 'With valid attributes' do
+    context 'when attributes are valid' do
       it 'Should be able to create a new company' do
         expect{ 
           post :create, params: { company: valid_company }
@@ -19,7 +19,7 @@ RSpec.describe ::Api::V1::CompaniesController, type: :controller do
       end
     end
 
-    context 'With invalid attributes' do
+    context 'when attributes are invalid' do
       it {
         expect{ 
           post :create, params: { company: invalid_company_name }
@@ -41,7 +41,7 @@ RSpec.describe ::Api::V1::CompaniesController, type: :controller do
       session[:user_id] = user.id
     end
     
-    context 'With valid id' do
+    context 'when attributes are valid' do
       it 'Should be able to get one resource' do
         response = get :show, params: { id: company.id }
         expect(assigns(:company)).to be_a(Company)
@@ -49,7 +49,7 @@ RSpec.describe ::Api::V1::CompaniesController, type: :controller do
       end
     end
     
-    context 'With invalid id' do
+    context 'when attributes are invalid' do
       it 'Should not be able to get one resource' do
         response = get :show, params: { id: -1 }
         expect(response.status).to equal(404)
@@ -65,7 +65,7 @@ RSpec.describe ::Api::V1::CompaniesController, type: :controller do
       session[:user_id] = user.id
     end
 
-    context 'with valid attributes' do
+    context 'when attributes are valid' do
       let(:valid_company) { attributes_for(:company) }
       
       it {
