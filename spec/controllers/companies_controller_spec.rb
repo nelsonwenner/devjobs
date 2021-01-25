@@ -93,6 +93,15 @@ RSpec.describe ::Api::V1::CompaniesController, type: :controller do
           'errors':{'name':["can't be blank"]}
         })
       end
+
+      it 'with invalid url' do 
+        response = put :update, params: { 
+          id: company.id, company: invalid_company_url
+        }
+        expect(eval(response.body)).to eq({
+          'errors':{'url':["can't be blank"]}
+        })
+      end
     end
   end
 end
