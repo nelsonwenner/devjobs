@@ -1,7 +1,7 @@
 module Api
   module V1
     class CompaniesController < ApiController
-      before_action :set_company, only: [:show]
+      before_action :set_company, only: [:show, :update]
       before_action :authenticate
       
       def show
@@ -12,7 +12,7 @@ module Api
         @company = Company.new(
           name: company_params[:name],
           url: company_params[:url],
-          brand: params[:company][:brand],
+          brand: company_params[:brand],
           user: current_user
         )
         
@@ -23,6 +23,14 @@ module Api
         end
       end
       
+      def update
+        if @company.update(company_params)
+          render json: serializer(@company)
+        else
+          render status: 422, json: errors(@company)
+        end
+      end
+      
       private
       
       def set_company
@@ -30,7 +38,7 @@ module Api
       end
       
       def company_params
-        params.require(:company).permit(:name, :url)
+        params.require(:company).permit(:name, :url, :brand)
       end
 
       def serializer(records, options = {})
