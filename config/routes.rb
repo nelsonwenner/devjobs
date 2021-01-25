@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   
   namespace :api do
     namespace :v1 do
-      resources :companies, param: :id, only: [:create, :show]
+      resources :companies, param: :id, only: [:create, :show, :update]
       resources :registrations, only: [:create]    
       resources :auths, only: [:create] do
         collection do
