@@ -3,9 +3,10 @@ class Company < ApplicationRecord
   has_many :position, dependent: :destroy
 
   has_one_attached :brand
-    
-  validates_presence_of :name, :url, on: :create
   
+  validates_presence_of :name, :url, on: :create
+  validates_presence_of :name, :url, on: :update
+
   before_create :add_slug
   before_create :empty_brand
   
