@@ -40,17 +40,17 @@ RSpec.describe ::Api::V1::CompaniesController, type: :controller do
     before do
       session[:user_id] = user.id
     end
-
-    context 'With valid slug' 
+    
+    context 'With valid id' 
       it 'Should be able to get one resource' do
-        response = get :show, params: { slug: company.slug }
+        response = get :show, params: { id: company.id }
         expect(assigns(:company)).to be_a(Company)
         expect(response.status).to equal(200)
     end
     
-    context 'With invalid slug' 
+    context 'With invalid id' 
     it 'Should not be able to get one resource' do
-      response = get :show, params: { slug: 'test-slug' }
+      response = get :show, params: { id: -1 }
       expect(response.status).to equal(404)
     end
   end
