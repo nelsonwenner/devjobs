@@ -26,7 +26,7 @@ module Api
       def serializer(records, options = {})
         PositionSerializer
           .new(records, options)
-          .serialized_json
+          .to_json
       end
       
       def errors(record)
