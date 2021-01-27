@@ -5,7 +5,7 @@ module Api
 
       def create
         @position = Position.new(position_params)
-        
+
         if @position.save
           render status: 201, json: serializer(@position)
         else
@@ -17,7 +17,7 @@ module Api
 
       def position_params
         params.require(:position).permit(
-          :name, :career, :contract, :remote, :country, 
+          :name, :contract, :remote, :country, 
           :state, :city, :summary, :description, :publish,
           :company_id, :career_id
         )
@@ -28,7 +28,7 @@ module Api
           .new(records, options)
           .to_json
       end
-      
+ 
       def errors(record)
         { errors: record.errors.messages }
       end
