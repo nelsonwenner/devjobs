@@ -3,8 +3,6 @@ require 'rails_helper'
 RSpec.describe ::Api::V1::CompaniesController, type: :controller do
   describe "POST #create" do
     let(:valid_company) { attributes_for(:company) }
-    let(:invalid_company_name) { attributes_for(:company, name: nil) }
-    let(:invalid_company_url) { attributes_for(:company, url: nil) }
     let(:user) { create(:user) }
 
     before do
@@ -22,12 +20,12 @@ RSpec.describe ::Api::V1::CompaniesController, type: :controller do
     context 'when attributes are invalid' do
       it {
         expect{ 
-          post :create, params: { company: invalid_company_name }
+          post :create, params: { company: { **valid_company, name: nil } }
         }.to change(Company, :count).by(0)
       }
       it {
         expect{ 
-          post :create, params: { company: invalid_company_url }
+          post :create, params: { company: { **valid_company, url: nil } }
         }.to change(Company, :count).by(0)
       }
     end
@@ -82,12 +80,11 @@ RSpec.describe ::Api::V1::CompaniesController, type: :controller do
     end
     
     context 'when attributes are invalid' do
-      let(:invalid_company_name) { attributes_for(:company, name: nil) }
-      let(:invalid_company_url) { attributes_for(:company, url: nil) }
+      let(:valid_company) { attributes_for(:company) }
       
       it 'with invalid name' do 
         response = put :update, params: { 
-          id: company.id, company: invalid_company_name
+          id: company.id, company: { **valid_company, name: nil }
         }
         expect(eval(response.body)).to eq({
           'errors':{'name':["can't be blank"]}
@@ -96,7 +93,7 @@ RSpec.describe ::Api::V1::CompaniesController, type: :controller do
 
       it 'with invalid url' do 
         response = put :update, params: { 
-          id: company.id, company: invalid_company_url
+          id: company.id, company: { **valid_company, url: nil }
         }
         expect(eval(response.body)).to eq({
           'errors':{'url':["can't be blank"]}
