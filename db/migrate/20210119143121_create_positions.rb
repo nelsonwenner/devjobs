@@ -12,6 +12,7 @@ class CreatePositions < ActiveRecord::Migration[6.0]
       t.text :description
       t.boolean :publish
       t.references :company, null: false, foreign_key: true
+      t.references :career, null: false, foreign_key: true
 
       t.timestamps
     end
