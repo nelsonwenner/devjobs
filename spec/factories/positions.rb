@@ -1,15 +1,15 @@
 FactoryBot.define do
   factory :position do
-    name { "MyString" }
-    career { 1 }
-    contract { 1 }
-    remote { false }
-    country { "MyString" }
-    state { "MyString" }
-    city { "MyString" }
-    summary { "MyText" }
-    description { "MyText" }
+    name { Faker::Name.name }
+    contract { "CLT" }
+    remote { true }
+    country { "BRAZIL" }
+    state { "PIAUI" }
+    city { "TERESINA" }
+    summary { Faker::Lorem.characters }
+    description { Faker::Lorem.characters }
     publish { false }
-    company { nil }
+    company_id { nil }
+    career_id { nil }
   end
 end
