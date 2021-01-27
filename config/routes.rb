@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
   root 'pages#index'
-  
+
   namespace :api do
     namespace :v1 do
       resources :companies, param: :id, only: [:create, :show, :update]
-      resources :registrations, only: [:create]    
+      resources :positions, only: [:create]
+      resources :registrations, only: [:create]
       resources :auths, only: [:create] do
         collection do
           get 'me', to: 'auths#logged_in'
