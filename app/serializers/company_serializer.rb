@@ -1,9 +1,8 @@
-class CompanySerializer
-  include FastJsonapi::ObjectSerializer
-  
+class CompanySerializer < ActiveModel::Serializer
+
   attributes :name, :url, :brand
-  
-  attribute :brand do |object|
+
+  def brand
     if object.brand.attached?
       {
         url: Rails.application.routes.url_helpers.rails_blob_url(

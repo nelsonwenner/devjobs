@@ -1,5 +1,4 @@
-class PositionSerializer
-  include FastJsonapi::ObjectSerializer
+class PositionSerializer < ActiveModel::Serializer
   
   attributes :name, :contract, :remote, :country, 
             :state, :city, :summary, :description, :publish,
