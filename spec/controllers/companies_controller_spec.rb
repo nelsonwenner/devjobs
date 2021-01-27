@@ -73,10 +73,10 @@ RSpec.describe ::Api::V1::CompaniesController, type: :controller do
           id: company.id, company: valid_company 
         }
         expect(
-          eval(response.body)[:data][:attributes][:name]
+          eval(response.body)[:name]
         ).to eq(valid_company[:name])
         expect(
-          eval(response.body)[:data][:attributes][:url]
+          eval(response.body)[:url]
         ).to eq(valid_company[:url])
       }
     end
