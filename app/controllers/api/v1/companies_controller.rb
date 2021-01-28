@@ -5,7 +5,7 @@ module Api
       before_action :authenticate
       
       def show
-        render status: 200, json: serializer(@company)
+        render status: 200, json: @company, serializer: CompanySerializer
       end
       
       def create
@@ -17,7 +17,7 @@ module Api
         )
         
         if @company.save
-          render status: 201, json: serializer(@company)
+          render status: 201, json: @company, serializer: CompanySerializer
         else
           render status: 400, json: errors(@company)
         end
@@ -25,7 +25,7 @@ module Api
       
       def update
         if @company.update(company_params)
-          render json: serializer(@company)
+          render json: @company, serializer: CompanySerializer
         else
           render status: 422, json: errors(@company)
         end
@@ -39,12 +39,6 @@ module Api
       
       def company_params
         params.require(:company).permit(:name, :url, :brand)
-      end
-
-      def serializer(records, options = {})
-        CompanySerializer
-          .new(records, options)
-          .to_json
       end
       
       def errors(record)

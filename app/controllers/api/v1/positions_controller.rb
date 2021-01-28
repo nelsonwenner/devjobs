@@ -3,17 +3,25 @@ module Api
     class PositionsController < ApiController
       before_action :authenticate, only: [:create]
 
+      def index
+        render status: 200, json: positions, each_serializer: PositionSerializer
+      end
+
       def create
         @position = Position.new(position_params)
 
         if @position.save
-          render status: 201, json: serializer(@position)
+          render status: 201, json: @position, serializer: PositionSerializer
         else
           render status: 400, json: errors(@position)
         end
       end
 
       private
+
+      def positions
+        @positions ||= Position.all
+      end
 
       def position_params
         params.require(:position).permit(
@@ -22,13 +30,7 @@ module Api
           :company_id, :career_id
         )
       end
-
-      def serializer(records, options = {})
-        PositionSerializer
-          .new(records, options)
-          .to_json
-      end
- 
+      
       def errors(record)
         { errors: record.errors.messages }
       end
