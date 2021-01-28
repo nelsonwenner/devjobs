@@ -61,10 +61,27 @@ RSpec.describe ::Api::V1::PositionsController, type: :controller do
           post :create, params: { position: { **valid_position, company_id: nil } }
         }.to change(Position, :count).by(0)
       }
-      it {expect{ 
+      it {
+        expect{ 
           post :create, params: { position: { **valid_position, career_id: nil } }
         }.to change(Position, :count).by(0)
       }
+    end
+  end
+
+  describe "GET #index" do
+    let(:user) { create(:user) }
+    let(:company) { create(:company, user: user) }
+    let(:career) { create(:career) }
+
+    context 'when request positions' do
+      it 'Should have one position' do
+        create(:position, company_id: company.id, career_id: career.id)
+        get :index 
+        expect(response.status).to equal(200)
+        expect(response.body).not_to be_empty
+        expect(eval(response.body).length()).to equal(1)
+      end
     end
   end
 end
