@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 2021_01_24_014934) do
   end
 
   create_table "positions", force: :cascade do |t|
+    t.string "slug"
     t.string "name"
     t.string "contract"
     t.boolean "remote", default: false
