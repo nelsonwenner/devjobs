@@ -90,7 +90,7 @@ RSpec.describe ::Api::V1::PositionsController, type: :controller do
     let(:company) { create(:company, user: user) }
     let(:career) { create(:career) }
   
-    context 'when request one positions' do
+    context 'when request one positions with slug valid' do
       let(:position) { create(:position, 
         company_id: company.id, career_id: career.id) 
       }
@@ -98,6 +98,19 @@ RSpec.describe ::Api::V1::PositionsController, type: :controller do
       it 'Should have one position with slug valid' do
         get :show, params: { slug: position.slug }
         expect(response.status).to equal(200)
+      end
+    end
+
+    context 'when request one positions with slug invalid' do
+      let(:position) { create(:position, 
+        company_id: company.id, career_id: career.id) 
+      }
+      
+      it 'Should have one position with slug valid' do
+        get :show, params: { slug: -1 }
+        expect(eval(response.body)).to eq({
+          'errors': 'Position not found'
+        })
       end
     end
   end
