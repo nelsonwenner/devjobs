@@ -1,10 +1,15 @@
 module Api
   module V1
     class PositionsController < ApiController
+      before_action :set_position, only: [:show]
       before_action :authenticate, only: [:create]
 
       def index
         render status: 200, json: positions, each_serializer: PositionSerializer
+      end
+
+      def show
+        render status: 200, json: @position, serializer: PositionSerializer
       end
 
       def create
@@ -21,6 +26,10 @@ module Api
 
       def positions
         @positions ||= Position.all
+      end
+
+      def set_position
+        @position = Position.where(slug: params[:slug]).first! or not_found
       end
 
       def position_params
