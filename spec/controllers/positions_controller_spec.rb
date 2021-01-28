@@ -75,12 +75,29 @@ RSpec.describe ::Api::V1::PositionsController, type: :controller do
     let(:career) { create(:career) }
 
     context 'when request positions' do
-      it 'Should have one position' do
+      it 'Should have a position list' do
         create(:position, company_id: company.id, career_id: career.id)
         get :index 
         expect(response.status).to equal(200)
         expect(response.body).not_to be_empty
         expect(eval(response.body).length()).to equal(1)
+      end
+    end
+  end
+
+  context 'GET #show' do
+    let(:user) { create(:user) }
+    let(:company) { create(:company, user: user) }
+    let(:career) { create(:career) }
+  
+    context 'when request one positions' do
+      let(:position) { create(:position, 
+        company_id: company.id, career_id: career.id) 
+      }
+      
+      it 'Should have one position with slug valid' do
+        get :show, params: { slug: position.slug }
+        expect(response.status).to equal(200)
       end
     end
   end
