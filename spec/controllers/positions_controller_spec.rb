@@ -161,5 +161,75 @@ RSpec.describe Api::V1::PositionsController, type: :controller do
         ).to eq(valid_position[:publish])
       }
     end
+
+    context 'when attributes are invalid' do
+      let(:user) { create(:user) }
+      let(:company) { create(:company, user: user) }
+      let(:career) { create(:career) }
+      let(:position) { create(:position, company_id: company.id,
+         career_id: career.id) }
+      let(:valid_position) { attributes_for(:position) }
+  
+      before do
+        session[:user_id] = user.id
+      end
+  
+      it {
+        put :update, params: { 
+          slug: position.slug, position: { **valid_position, name: nil } 
+        }
+        expect(eval(response.body)).to eq({
+          'errors':{'name':["can't be blank"]}
+        })
+      }
+      it {
+        put :update, params: { 
+          slug: position.slug, position: { **valid_position, contract: nil } 
+        }
+        expect(eval(response.body)).to eq({
+          'errors':{'contract':["can't be blank"]}
+        })
+      }
+      it {
+        put :update, params: { 
+          slug: position.slug, position: { **valid_position, country: nil } 
+        }
+        expect(eval(response.body)).to eq({
+          'errors':{'country':["can't be blank"]}
+        })
+      }
+      it {
+        put :update, params: { 
+          slug: position.slug, position: { **valid_position, state: nil } 
+        }
+        expect(eval(response.body)).to eq({
+          'errors':{'state':["can't be blank"]}
+        })
+      }
+      it {
+        put :update, params: { 
+          slug: position.slug, position: { **valid_position, city: nil } 
+        }
+        expect(eval(response.body)).to eq({
+          'errors':{'city':["can't be blank"]}
+        })
+      }
+      it {
+        put :update, params: { 
+          slug: position.slug, position: { **valid_position, summary: nil } 
+        }
+        expect(eval(response.body)).to eq({
+          'errors':{'summary':["can't be blank"]}
+        })
+      }
+      it {
+        put :update, params: { 
+          slug: position.slug, position: { **valid_position, description: nil } 
+        }
+        expect(eval(response.body)).to eq({
+          'errors':{'description':["can't be blank"]}
+        })
+      }
+    end
   end
 end
