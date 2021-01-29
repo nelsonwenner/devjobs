@@ -3,24 +3,17 @@ require 'rails_helper'
 RSpec.describe Position, type: :model do
   describe 'Associations' do
     it { should belong_to(:company) }
-    it { should belong_to(:career) }
     it { should have_many(:applicant) }
   end
 
   describe 'Validations' do
-    it { should validate_presence_of(:name).on(:create) }
-    it { should validate_presence_of(:contract).on(:create) }
-    it { should validate_presence_of(:country).on(:create) }
-    it { should validate_presence_of(:state).on(:create) }
-    it { should validate_presence_of(:city).on(:create) }
-    it { should validate_presence_of(:summary).on(:create) }
-    it { should validate_presence_of(:description).on(:create) }
-    it { should validate_presence_of(:name).on(:update) }
-    it { should validate_presence_of(:contract).on(:update) }
-    it { should validate_presence_of(:country).on(:update) }
-    it { should validate_presence_of(:state).on(:update) }
-    it { should validate_presence_of(:city).on(:update) }
-    it { should validate_presence_of(:summary).on(:update) }
-    it { should validate_presence_of(:description).on(:update) }
+    it { should validate_presence_of(:name) }
+    it { should validate_presence_of(:career) }
+    it { should validate_presence_of(:contract) }
+    it { should validate_presence_of(:country) }
+    it { should validate_presence_of(:state) }
+    it { should validate_presence_of(:city) }
+    it { should validate_presence_of(:summary) }
+    it { should validate_presence_of(:description) }
   end
 end
