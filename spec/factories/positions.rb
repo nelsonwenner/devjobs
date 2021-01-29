@@ -1,7 +1,8 @@
 FactoryBot.define do
   factory :position do
     name { Faker::Name.name }
-    contract { "CLT" }
+    career { 'developer' }
+    contract { 'clt' }
     remote { true }
     country { "BRAZIL" }
     state { "PIAUI" }
@@ -10,6 +11,5 @@ FactoryBot.define do
     description { Faker::Lorem.characters }
     publish { false }
     company_id { nil }
-    career_id { nil }
   end
 end
