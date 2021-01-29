@@ -1,8 +1,8 @@
 module Api
   module V1
     class PositionsController < ApiController
-      before_action :set_position, only: [:show]
-      before_action :authenticate, only: [:create]
+      before_action :set_position, only: [:show, :update]
+      before_action :authenticate, only: [:create, :update]
 
       def index
         render status: 200, json: positions, each_serializer: PositionSerializer
@@ -22,6 +22,14 @@ module Api
         end
       end
 
+      def update
+        if @position.update(position_params_update)
+          render status: 200, json: @position, serializer: PositionSerializer
+        else
+          render status: 422, json: errors(@position)
+        end
+      end
+
       private
 
       def positions
@@ -37,6 +45,13 @@ module Api
           :name, :contract, :remote, :country, 
           :state, :city, :summary, :description, :publish,
           :company_id, :career_id
+        )
+      end
+
+      def position_params_update
+        params.require(:position).permit(
+          :name, :contract, :remote, :country, 
+          :state, :city, :summary, :description, :publish
         )
       end
       
