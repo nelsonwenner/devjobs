@@ -5,7 +5,9 @@ class Position < ApplicationRecord
 
   validates_presence_of :name, :contract, :country, :state, :city, 
                         :summary, :description, on: :create
-                        
+  validates_presence_of :name, :contract, :country, :state, :city, 
+                        :summary, :description, on: :update
+         
   before_create :add_slug
 
   private
