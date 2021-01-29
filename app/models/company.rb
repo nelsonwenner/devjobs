@@ -7,15 +7,10 @@ class Company < ApplicationRecord
   validates_presence_of :name, :url, on: :create
   validates_presence_of :name, :url, on: :update
 
-  before_create :add_slug
-  before_create :empty_brand
+  before_save :empty_brand
   
   private
 
-  def add_slug
-    self.slug = self.name.parameterize
-  end
-  
   def empty_brand
     self.brand.attach(
       io: File.open(
