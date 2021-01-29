@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ::Api::V1::PositionsController, type: :controller do
+RSpec.describe Api::V1::PositionsController, type: :controller do
   describe "POST #create" do
     let(:user) { create(:user) }
     let(:company) { create(:company, user: user) }
@@ -112,6 +112,54 @@ RSpec.describe ::Api::V1::PositionsController, type: :controller do
           'errors': 'Position not found'
         })
       end
+    end
+  end
+
+  describe "PUT #update" do
+    let(:user) { create(:user) }
+    let(:company) { create(:company, user: user) }
+    let(:career) { create(:career) }
+    let(:position) { create(:position, company_id: company.id,
+       career_id: career.id) }
+    let(:valid_position) { attributes_for(:position) }
+
+    before do
+      session[:user_id] = user.id
+    end
+
+    context 'when attributes are valid' do
+      it {
+        response = put :update, params: { 
+          slug: position.slug, position: valid_position
+        }
+        expect(
+          eval(response.body)[:name]
+        ).to eq(valid_position[:name])
+        expect(
+          eval(response.body)[:contract]
+        ).to eq(valid_position[:contract])
+        expect(
+          eval(response.body)[:remote]
+        ).to eq(valid_position[:remote])
+        expect(
+          eval(response.body)[:country]
+        ).to eq(valid_position[:country])
+        expect(
+          eval(response.body)[:state]
+        ).to eq(valid_position[:state])
+        expect(
+          eval(response.body)[:city]
+        ).to eq(valid_position[:city])
+        expect(
+          eval(response.body)[:summary]
+        ).to eq(valid_position[:summary])
+        expect(
+          eval(response.body)[:description]
+        ).to eq(valid_position[:description])
+        expect(
+          eval(response.body)[:publish]
+        ).to eq(valid_position[:publish])
+      }
     end
   end
 end
