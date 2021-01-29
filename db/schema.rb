@@ -48,15 +48,8 @@ ActiveRecord::Schema.define(version: 2021_01_24_014934) do
     t.index ["user_id"], name: "index_applicants_on_user_id"
   end
 
-  create_table "careers", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "companies", force: :cascade do |t|
     t.string "name"
-    t.string "slug"
     t.string "url"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -67,7 +60,8 @@ ActiveRecord::Schema.define(version: 2021_01_24_014934) do
   create_table "positions", force: :cascade do |t|
     t.string "slug"
     t.string "name"
-    t.string "contract"
+    t.integer "career", default: 0
+    t.integer "contract", default: 0
     t.boolean "remote", default: false
     t.string "country"
     t.string "state"
@@ -76,10 +70,8 @@ ActiveRecord::Schema.define(version: 2021_01_24_014934) do
     t.text "description"
     t.boolean "publish", default: false
     t.bigint "company_id", null: false
-    t.bigint "career_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["career_id"], name: "index_positions_on_career_id"
     t.index ["company_id"], name: "index_positions_on_company_id"
   end
 
@@ -97,6 +89,5 @@ ActiveRecord::Schema.define(version: 2021_01_24_014934) do
   add_foreign_key "applicants", "positions"
   add_foreign_key "applicants", "users"
   add_foreign_key "companies", "users"
-  add_foreign_key "positions", "careers"
   add_foreign_key "positions", "companies"
 end
