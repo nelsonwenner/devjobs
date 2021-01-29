@@ -5,24 +5,3 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-
-Career.create([
-  { 
-    name: "Developer",
-  },
-  { 
-    name: "Business Intelligence",
-  },
-  { 
-    name: "Information Technology",
-  },
-  { 
-    name: "Design",
-  },
-  { 
-    name: "Devops",
-  },
-  { 
-    name: "Product",
-  },
-])
