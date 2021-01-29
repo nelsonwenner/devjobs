@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe ::Api::V1::AuthsController, type: :controller do
+RSpec.describe Api::V1::AuthsController, type: :controller do
   # Shared concern Authable 
-  it_behaves_like 'Authable', ::Api::V1::AuthsController
+  it_behaves_like 'Authable', Api::V1::AuthsController
   
   describe 'POST #create' do
     let(:user) { create(:user) }

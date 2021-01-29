@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ::Api::V1::RegistrationsController, type: :controller do
+RSpec.describe Api::V1::RegistrationsController, type: :controller do
   describe "POST #create" do
     let(:valid_user) { attributes_for(:user) }
     

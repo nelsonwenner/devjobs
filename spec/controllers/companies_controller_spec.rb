@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ::Api::V1::CompaniesController, type: :controller do
+RSpec.describe Api::V1::CompaniesController, type: :controller do
   describe "POST #create" do
     let(:valid_company) { attributes_for(:company) }
     let(:user) { create(:user) }
