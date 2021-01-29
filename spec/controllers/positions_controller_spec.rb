@@ -4,9 +4,7 @@ RSpec.describe Api::V1::PositionsController, type: :controller do
   describe "POST #create" do
     let(:user) { create(:user) }
     let(:company) { create(:company, user: user) }
-    let(:career) { create(:career) }
-    let(:valid_position) { attributes_for(
-      :position, company_id: company.id, career_id: career.id) }
+    let(:valid_position) { attributes_for(:position, company_id: company.id) }
 
     before do
       session[:user_id] = user.id
@@ -24,6 +22,11 @@ RSpec.describe Api::V1::PositionsController, type: :controller do
       it {
         expect{ 
           post :create, params: { position: { **valid_position, name: nil } }
+        }.to change(Position, :count).by(0)
+      }
+      it {
+        expect{ 
+          post :create, params: { position: { **valid_position, career: nil } }
         }.to change(Position, :count).by(0)
       }
       it {
@@ -61,22 +64,16 @@ RSpec.describe Api::V1::PositionsController, type: :controller do
           post :create, params: { position: { **valid_position, company_id: nil } }
         }.to change(Position, :count).by(0)
       }
-      it {
-        expect{ 
-          post :create, params: { position: { **valid_position, career_id: nil } }
-        }.to change(Position, :count).by(0)
-      }
     end
   end
 
   describe "GET #index" do
     let(:user) { create(:user) }
     let(:company) { create(:company, user: user) }
-    let(:career) { create(:career) }
 
     context 'when request positions' do
       it 'Should have a position list' do
-        create(:position, company_id: company.id, career_id: career.id)
+        create(:position, company_id: company.id)
         get :index 
         expect(response.status).to equal(200)
         expect(response.body).not_to be_empty
@@ -88,12 +85,9 @@ RSpec.describe Api::V1::PositionsController, type: :controller do
   context 'GET #show' do
     let(:user) { create(:user) }
     let(:company) { create(:company, user: user) }
-    let(:career) { create(:career) }
   
     context 'when request one positions with slug valid' do
-      let(:position) { create(:position, 
-        company_id: company.id, career_id: career.id) 
-      }
+      let(:position) { create(:position, company_id: company.id) }
       
       it 'Should have one position with slug valid' do
         get :show, params: { slug: position.slug }
@@ -102,11 +96,9 @@ RSpec.describe Api::V1::PositionsController, type: :controller do
     end
 
     context 'when request one positions with slug invalid' do
-      let(:position) { create(:position, 
-        company_id: company.id, career_id: career.id) 
-      }
+      let(:position) { create(:position, company_id: company.id) }
       
-      it 'Should have one position with slug valid' do
+      it 'Should not have one position with slug valid' do
         get :show, params: { slug: -1 }
         expect(eval(response.body)).to eq({
           'errors': 'Position not found'
@@ -118,9 +110,7 @@ RSpec.describe Api::V1::PositionsController, type: :controller do
   describe "PUT #update" do
     let(:user) { create(:user) }
     let(:company) { create(:company, user: user) }
-    let(:career) { create(:career) }
-    let(:position) { create(:position, company_id: company.id,
-       career_id: career.id) }
+    let(:position) { create(:position, company_id: company.id) }
     let(:valid_position) { attributes_for(:position) }
 
     before do
@@ -136,8 +126,11 @@ RSpec.describe Api::V1::PositionsController, type: :controller do
           eval(response.body)[:name]
         ).to eq(valid_position[:name])
         expect(
+          eval(response.body)[:career]
+        ).to eq('developer')
+        expect(
           eval(response.body)[:contract]
-        ).to eq(valid_position[:contract])
+        ).to eq('clt')
         expect(
           eval(response.body)[:remote]
         ).to eq(valid_position[:remote])
@@ -165,9 +158,7 @@ RSpec.describe Api::V1::PositionsController, type: :controller do
     context 'when attributes are invalid' do
       let(:user) { create(:user) }
       let(:company) { create(:company, user: user) }
-      let(:career) { create(:career) }
-      let(:position) { create(:position, company_id: company.id,
-         career_id: career.id) }
+      let(:position) { create(:position, company_id: company.id) }
       let(:valid_position) { attributes_for(:position) }
   
       before do
@@ -180,6 +171,14 @@ RSpec.describe Api::V1::PositionsController, type: :controller do
         }
         expect(eval(response.body)).to eq({
           'errors':{'name':["can't be blank"]}
+        })
+      }
+      it {
+        put :update, params: { 
+          slug: position.slug, position: { **valid_position, career: nil } 
+        }
+        expect(eval(response.body)).to eq({
+          'errors':{'career':["can't be blank"]}
         })
       }
       it {
