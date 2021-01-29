@@ -1,18 +1,19 @@
 class Position < ApplicationRecord
   belongs_to :company
-  belongs_to :career
   has_many :applicant, dependent: :destroy
 
-  validates_presence_of :name, :contract, :country, :state, :city, 
-                        :summary, :description, on: :create
-  validates_presence_of :name, :contract, :country, :state, :city, 
-                        :summary, :description, on: :update
-         
-  before_create :add_slug
+  enum career: [:developer, :business_intelligence, :information_technology,
+                :design, :devops, :product, :other] 
+  enum contract: [:clt, :pj, :match]
+
+  validates_presence_of :name, :career, :contract, :country, :state, :city, 
+                        :summary, :description
+
+  before_save :add_slug
 
   private
 
   def add_slug
-    self.slug = self.name.parameterize
+    self.slug = "#{self.company.name.parameterize}-#{self.name.parameterize}" 
   end
 end
