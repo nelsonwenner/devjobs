@@ -15,5 +15,12 @@ RSpec.describe Position, type: :model do
     it { should validate_presence_of(:city).on(:create) }
     it { should validate_presence_of(:summary).on(:create) }
     it { should validate_presence_of(:description).on(:create) }
+    it { should validate_presence_of(:name).on(:update) }
+    it { should validate_presence_of(:contract).on(:update) }
+    it { should validate_presence_of(:country).on(:update) }
+    it { should validate_presence_of(:state).on(:update) }
+    it { should validate_presence_of(:city).on(:update) }
+    it { should validate_presence_of(:summary).on(:update) }
+    it { should validate_presence_of(:description).on(:update) }
   end
 end
