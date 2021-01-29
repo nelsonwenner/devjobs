@@ -42,19 +42,19 @@ module Api
 
       def position_params
         params.require(:position).permit(
-          :name, :contract, :remote, :country, 
+          :name, :career, :contract, :remote, :country, 
           :state, :city, :summary, :description, :publish,
-          :company_id, :career_id
+          :company_id
         )
       end
 
       def position_params_update
         params.require(:position).permit(
-          :name, :contract, :remote, :country, 
+          :name, :career, :contract, :remote, :country, 
           :state, :city, :summary, :description, :publish
         )
       end
-      
+
       def errors(record)
         { errors: record.errors.messages }
       end
