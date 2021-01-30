@@ -18,5 +18,28 @@ RSpec.describe Api::V1::ApplicantsController, type: :controller do
         }.to change(Applicant, :count).by(1)
       end
     end
+
+    context 'when attributes are invalid' do
+      it {
+        expect{ 
+          post :create, params: { applicant: { **valid_applicant, name: nil } }
+        }.to change(Applicant, :count).by(0)
+      }
+      it {
+        expect{ 
+          post :create, params: { applicant: { **valid_applicant, email: nil } }
+        }.to change(Applicant, :count).by(0)
+      }
+      it {
+        expect{ 
+          post :create, params: { applicant: { **valid_applicant, phone: nil } }
+        }.to change(Applicant, :count).by(0)
+      }
+      it {
+        expect{ 
+          post :create, params: { applicant: { **valid_applicant, position_id: nil } }
+        }.to change(Applicant, :count).by(0)
+      }
+    end
   end
 end
