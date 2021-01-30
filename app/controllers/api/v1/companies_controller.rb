@@ -9,12 +9,7 @@ module Api
       end
       
       def create
-        @company = Company.new(
-          name: company_params[:name],
-          url: company_params[:url],
-          brand: company_params[:brand],
-          user: current_user
-        )
+        @company = Company.new(**company_params, user: current_user)
         
         if @company.save
           render status: 201, json: @company, serializer: CompanySerializer
