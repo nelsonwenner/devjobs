@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :companies, param: :id, only: [:create, :show, :update]
       resources :positions, param: :slug, only: [:create, :index, :show, :update]
+      resources :applicants, only: [:create]
       resources :registrations, only: [:create]
       resources :auths, only: [:create] do
         collection do
