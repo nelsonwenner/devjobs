@@ -6,7 +6,7 @@ RSpec.describe ResetPasswordMailer, type: :mailer do
 
   describe "ResetPasswordMailer #call" do
     context 'when attributes are renders' do
-      it 'ensure be able to render the subject' do
+      it 'should be able to render the subject' do
         expect(mail.subject).to eq('Password Reset')
       end
     end
