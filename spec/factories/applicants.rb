@@ -6,7 +6,7 @@ FactoryBot.define do
     position_id { nil }
     curriculum { 
       Rack::Test::UploadedFile.new(
-        Rails.root.join('app', 'assets', 'images', 'test', 'test_file_pdf.pdf')
+        Rails.root.join('spec', 'fixtures', 'files', 'test_file_pdf.pdf')
       )
     }
   end

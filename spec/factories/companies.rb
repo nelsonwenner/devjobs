@@ -4,7 +4,7 @@ FactoryBot.define do
     url { Faker::Internet.url(host: 'example.com') }
     brand { 
       Rack::Test::UploadedFile.new(
-        Rails.root.join('app', 'assets', 'images', 'test', 'rails-logo.png')
+        Rails.root.join('spec', 'fixtures', 'files', 'rails-logo.png')
       )
     }
   end
