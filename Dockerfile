@@ -1,7 +1,7 @@
-FROM ruby:2.7.2
+FROM ruby:2.7.2 as builder
 
 # Install all the requirements
-RUN apt update -qq && apt install -y build-essential libpq-dev
+RUN apt update && apt install -y build-essential libpq-dev
 
 # Setup ENV variables
 ENV DOCKERIZE_VERSION v0.6.1
@@ -28,4 +28,4 @@ COPY . /usr/src/app
 RUN yarn install
 
 # Run bundler install
-RUN bundle install
+RUN gem update --system && bundle install
