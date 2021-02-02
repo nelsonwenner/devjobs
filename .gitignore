@@ -40,8 +40,8 @@
 yarn-debug.log*
 .yarn-integrity
 
-# Ignore postgres
-postgres/
+# Ignore vscode
+.vscode
 
 # Ignore application configuration
 /config/application.yml
