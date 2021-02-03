@@ -87,14 +87,13 @@ RSpec.describe Api::V1::AuthsController, type: :controller do
     end
 
     describe 'When attributes are invalid' do
-      it 'Should not be able to redefine password with success' do
+      it 'Should not be able to redefine password, email invalid' do
         response = post :forgot_password, params: { email: nil }
-        expect(eval(response.body)).to eq({ error: 'Something went wrong.' })
+        expect(eval(response.body)).to eq({ error: 'Invalid email' })
         expect(response.status).to equal(422)
       end
     end
   end
-
 
   describe 'POST #reset_password' do
     let(:user) { create(:user) }
@@ -124,6 +123,18 @@ RSpec.describe Api::V1::AuthsController, type: :controller do
         response = post :reset_password, params: { token: token, password: password }
         expect(eval(response.body)).to eq({ "error": "The link has expired." })
         expect(response.status).to equal(404)
+      end
+
+      it 'Should not be able to reset password, password and token invalids' do
+        post :forgot_password, params: { email: user.email }
+        user.reload()
+
+        token = nil
+        password = nil
+
+        response = post :reset_password, params: { token: token, password: password }
+        expect(eval(response.body)).to eq({ "error": "Invalid token or password" })
+        expect(response.status).to equal(422)
       end
     end
   end
