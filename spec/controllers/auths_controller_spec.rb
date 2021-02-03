@@ -85,5 +85,13 @@ RSpec.describe Api::V1::AuthsController, type: :controller do
         expect(response.status).to equal(200)
       end
     end
+
+    describe 'When attributes are invalid' do
+      it 'Should not be able to redefine password with success' do
+        response = post :forgot_password, params: { email: nil }
+        expect(eval(response.body)).to eq({ error: 'Something went wrong.' })
+        expect(response.status).to equal(422)
+      end
+    end
   end
 end
