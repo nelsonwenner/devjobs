@@ -62,7 +62,7 @@ fi
 if [ "${CONTAINER_RUNTIME}" = "docker" ]; then
 
   echo "Depending on your hardware specs, the initial setup can take"
-  echo "5 to 10 minutes. Please stand by..."
+  echo "10 to 20 minutes. Please stand by..."
   sleep 10
   
   DATE=`date +%Y%m%d-%H%M%S-%3N`
