@@ -2,7 +2,8 @@ module Resettable
   extend ActiveSupport::Concern
 
   included do
-    before_action :check_email, only: :reset
+    before_action :check_token_password, only: [:reset_password]
+    before_action :check_email, only: [:forgot_password]
   end
   
   def forgot_password
@@ -41,6 +42,11 @@ module Resettable
 
   def check_email
     render json: { error: 'Invalid email' }, status: 422 if params[:email].blank?
+  end
+
+  def check_token_password
+    render json: { error: 'Invalid token or password' }, 
+    status: 422 if params[:token].blank? or params[:password].blank?
   end
 
   def invalid_reset
