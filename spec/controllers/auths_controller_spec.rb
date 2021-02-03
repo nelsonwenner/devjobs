@@ -7,7 +7,7 @@ RSpec.describe Api::V1::AuthsController, type: :controller do
   describe 'POST #create' do
     let(:user) { create(:user) }
 
-    context 'When authentication is valid' do
+    describe 'When authentication is valid' do
       it 'Should be able to authenticate' do
         response = post :create, params: { 
           user: {
@@ -21,7 +21,7 @@ RSpec.describe Api::V1::AuthsController, type: :controller do
       end
     end
     
-    context 'When authentication is invalid' do
+    describe 'When authentication is invalid' do
       it 'Should not be able to find user' do
         response = post :create, params: { 
           user: {
@@ -50,7 +50,7 @@ RSpec.describe Api::V1::AuthsController, type: :controller do
     let(:valid_user_attr) { attributes_for(:user) }
     let(:user) { create(:user) }
 
-    context 'When authentication' do
+    describe 'When authentication' do
       it 'Should be able to verify if it is log in' do
         session[:user_id] = user.id
         response = get :logged_in, params: { user: valid_user_attr }
@@ -66,7 +66,7 @@ RSpec.describe Api::V1::AuthsController, type: :controller do
   describe "DELETE #logout" do
     let(:user) { create(:user) }
     
-    context 'When logout' do
+    describe 'When logout' do
       it 'Should be able to log out' do
         session[:user_id] = user.id
         response = delete :logout

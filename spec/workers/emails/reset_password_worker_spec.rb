@@ -14,10 +14,10 @@ RSpec.describe Emails::ResetPasswordWorker, type: :worker do
     allow(message_delivery_mock).to receive(:deliver_now)
   end
 
-  include_examples "#enqueues_on_correct_queue", "default"
+  include_examples '#enqueues_on_correct_queue', 'default'
   
-  describe "#perform" do
-    it "should be able to send an email to reset the password" do
+  describe '#perform' do
+    it 'should be able to send an email to reset the password' do
       worker.perform(email, token)
       expect(NotifyMailer).to have_received(:with).with(email: email, token: token)
       expect(mailer_mock).to have_received(:reset_password_email)

@@ -9,7 +9,7 @@ RSpec.describe Api::V1::CompaniesController, type: :controller do
       session[:user_id] = user.id
     end
 
-    context 'when attributes are valid' do
+    describe 'When attributes are valid' do
       it 'Should be able to create a new company' do
         expect{ 
           post :create, params: { company: valid_company }
@@ -17,7 +17,7 @@ RSpec.describe Api::V1::CompaniesController, type: :controller do
       end
     end
 
-    context 'when attributes are invalid' do
+    describe 'When attributes are invalid' do
       it {
         expect{ 
           post :create, params: { company: { **valid_company, name: nil } }
@@ -39,7 +39,7 @@ RSpec.describe Api::V1::CompaniesController, type: :controller do
       session[:user_id] = user.id
     end
     
-    context 'when attributes are valid' do
+    describe 'When attributes are valid' do
       it 'Should be able to get one resource' do
         response = get :show, params: { id: company.id }
         expect(assigns(:company)).to be_a(Company)
@@ -47,7 +47,7 @@ RSpec.describe Api::V1::CompaniesController, type: :controller do
       end
     end
     
-    context 'when attributes are invalid' do
+    describe 'When attributes are invalid' do
       it 'Should not be able to get one resource' do
         response = get :show, params: { id: -1 }
         expect(response.status).to equal(404)
@@ -63,7 +63,7 @@ RSpec.describe Api::V1::CompaniesController, type: :controller do
       session[:user_id] = user.id
     end
 
-    context 'when attributes are valid' do
+    describe 'When attributes are valid' do
       let(:valid_company) { attributes_for(:company) }
       
       it {
@@ -79,10 +79,10 @@ RSpec.describe Api::V1::CompaniesController, type: :controller do
       }
     end
     
-    context 'when attributes are invalid' do
+    describe 'When attributes are invalid' do
       let(:valid_company) { attributes_for(:company) }
       
-      it 'with invalid name' do 
+      it 'With invalid name' do 
         response = put :update, params: { 
           id: company.id, company: { **valid_company, name: nil }
         }
@@ -91,7 +91,7 @@ RSpec.describe Api::V1::CompaniesController, type: :controller do
         })
       end
 
-      it 'with invalid url' do 
+      it 'With invalid url' do 
         response = put :update, params: { 
           id: company.id, company: { **valid_company, url: nil }
         }

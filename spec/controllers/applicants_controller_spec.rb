@@ -11,7 +11,7 @@ RSpec.describe Api::V1::ApplicantsController, type: :controller do
       session[:user_id] = user.id
     end
 
-    context 'when attributes are valid' do
+    describe 'When attributes are valid' do
       it 'Should be able to create a new applicant' do
         expect{ 
           post :create, params: { applicant: valid_applicant }
@@ -19,7 +19,7 @@ RSpec.describe Api::V1::ApplicantsController, type: :controller do
       end
     end
 
-    context 'when attributes are invalid' do
+    describe 'When attributes are invalid' do
       it {
         expect{ 
           post :create, params: { applicant: { **valid_applicant, name: nil } }

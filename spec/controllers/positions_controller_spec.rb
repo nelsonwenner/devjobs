@@ -10,7 +10,7 @@ RSpec.describe Api::V1::PositionsController, type: :controller do
       session[:user_id] = user.id
     end
 
-    context 'when attributes are valid' do
+    describe 'When attributes are valid' do
       it 'Should be able to create a new position' do
         expect{ 
           post :create, params: { position: valid_position }
@@ -18,7 +18,7 @@ RSpec.describe Api::V1::PositionsController, type: :controller do
       end
     end
 
-    context 'when attributes are invalid' do
+    describe 'When attributes are invalid' do
       it {
         expect{ 
           post :create, params: { position: { **valid_position, name: nil } }
@@ -71,7 +71,7 @@ RSpec.describe Api::V1::PositionsController, type: :controller do
     let(:user) { create(:user) }
     let(:company) { create(:company, user: user) }
 
-    context 'when request positions' do
+    describe 'When request positions' do
       it 'Should have a position list' do
         create(:position, company_id: company.id)
         get :index 
@@ -82,11 +82,11 @@ RSpec.describe Api::V1::PositionsController, type: :controller do
     end
   end
 
-  context 'GET #show' do
+  describe 'GET #show' do
     let(:user) { create(:user) }
     let(:company) { create(:company, user: user) }
   
-    context 'when request one positions with slug valid' do
+    describe 'When request one positions with slug valid' do
       let(:position) { create(:position, company_id: company.id) }
       
       it 'Should have one position with slug valid' do
@@ -95,7 +95,7 @@ RSpec.describe Api::V1::PositionsController, type: :controller do
       end
     end
 
-    context 'when request one positions with slug invalid' do
+    describe 'When request one positions with slug invalid' do
       let(:position) { create(:position, company_id: company.id) }
       
       it 'Should not have one position with slug valid' do
@@ -117,7 +117,7 @@ RSpec.describe Api::V1::PositionsController, type: :controller do
       session[:user_id] = user.id
     end
 
-    context 'when attributes are valid' do
+    describe 'When attributes are valid' do
       it {
         response = put :update, params: { 
           slug: position.slug, position: valid_position
@@ -155,7 +155,7 @@ RSpec.describe Api::V1::PositionsController, type: :controller do
       }
     end
 
-    context 'when attributes are invalid' do
+    describe 'When attributes are invalid' do
       let(:user) { create(:user) }
       let(:company) { create(:company, user: user) }
       let(:position) { create(:position, company_id: company.id) }

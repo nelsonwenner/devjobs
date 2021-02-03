@@ -4,7 +4,7 @@ RSpec.describe Api::V1::RegistrationsController, type: :controller do
   describe "POST #create" do
     let(:valid_user) { attributes_for(:user) }
     
-    context 'when attributes are valid' do
+    describe 'When attributes are valid' do
       it 'Should be able to create a new user' do
         expect{ 
           post :create, params: { user: valid_user }
@@ -12,7 +12,7 @@ RSpec.describe Api::V1::RegistrationsController, type: :controller do
       end
     end
 
-    context 'when attributes are invalid' do
+    describe 'When attributes are invalid' do
       it {
         expect{ 
           post :create, params: { user: { **valid_user, username: nil } }
