@@ -112,5 +112,19 @@ RSpec.describe Api::V1::AuthsController, type: :controller do
         expect(response.status).to equal(200)
       end
     end
+
+    describe 'When attributes are invalids' do
+      it 'Should not be able to reset password, token invalid' do
+        post :forgot_password, params: { email: user.email }
+        user.reload()
+
+        token = '123456'
+        password = '654321'
+
+        response = post :reset_password, params: { token: token, password: password }
+        expect(eval(response.body)).to eq({ "error": "The link has expired." })
+        expect(response.status).to equal(404)
+      end
+    end
   end
 end
