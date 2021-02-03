@@ -13,7 +13,7 @@ module Resettable
     user.generate_password_token!
     send_reset_password_email(user.email, user.reload.reset_password_token)
 
-    render json: { success: true }, status: 204
+    render json: { success: true }, status: 200
   end
   
   def reset_password
@@ -22,7 +22,7 @@ module Resettable
     return invalid_reset unless user&.password_token_valid?
 
     if user.reset_password!(params[:password])
-      render json: { success: true }, status: 204
+      render json: { success: true }, status: 200
     else
       render json: { error: user.errors.full_messages }, status: 422
     end
@@ -36,7 +36,7 @@ module Resettable
   #
   # @return [Nil]
   def send_reset_password_email(email, token)
-    NotifyMailer.with(email: email, token: token).reset_password_email.perform_async
+    Emails::ResetPasswordWorker.perform_async(email, token)
   end
 
   def check_email
