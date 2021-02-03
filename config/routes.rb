@@ -9,6 +9,8 @@ Rails.application.routes.draw do
       resources :registrations, only: [:create]
       resources :auths, only: [:create] do
         collection do
+          post 'password/forgot', to: 'auths#forgot_password'
+          post 'password/reset', to: 'auths#reset_password'
           get 'me', to: 'auths#logged_in'
           delete 'logout', to: 'auths#logout'
         end
