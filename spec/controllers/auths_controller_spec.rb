@@ -94,4 +94,23 @@ RSpec.describe Api::V1::AuthsController, type: :controller do
       end
     end
   end
+
+
+  describe 'POST #reset_password' do
+    let(:user) { create(:user) }
+
+    describe 'When attributes are valid' do
+      it 'Should be able to reset password with success' do
+        post :forgot_password, params: { email: user.email }
+        user.reload()
+
+        token = user.reset_password_token
+        password = '654321'
+
+        response = post :reset_password, params: { token: token, password: password }
+        expect(eval(response.body)).to eq({ success: true })
+        expect(response.status).to equal(200)
+      end
+    end
+  end
 end
