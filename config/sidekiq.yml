@@ -1,0 +1,6 @@
+:queues:
+  - ["default", 1]
+  - ["low_priority", 2]
+  - ["medium_priority", 3]
+  - ["high_priority", 4]
+  - ["mailers", 5]
