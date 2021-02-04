@@ -27,4 +27,14 @@ RSpec.describe User, type: :model do
       expect(user.password_token_valid?).to equal(true)
     end
   end
+
+  describe '#reset_password' do
+    it 'Should be able to reset password' do
+      new_password = '123456'
+      user.generate_password_token!
+      user.reload()
+      update_password = user.reset_password!(new_password)
+      expect(update_password).to equal(true)
+    end
+  end
 end
