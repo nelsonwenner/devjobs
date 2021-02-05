@@ -1,24 +1,43 @@
-# README
+<h1 align="center">
+  DevJobs
+</h1>
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+<p align="center">
+  
+  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/nelsonwenner/devjobs?color=%2304D361">
 
-Things you may want to cover:
+  <a href="https://github.com/nelsonwenner">
+    <img alt="Made by @nelsonwenner" src="https://img.shields.io/badge/made%20by-%40nelsonwenner-%2304D361">
+  </a>
 
-* Ruby version
+  <img alt="License" src="https://img.shields.io/badge/license-MIT-%2304D361">
 
-* System dependencies
+  <a href="https://github.com/nelsonwenner/ecommerce/stargazers">
+    <img alt="Stargazers" src="https://img.shields.io/github/stars/nelsonwenner/devjobs?style=social">
+  </a>
+</p>
 
-* Configuration
+<br>
 
-* Database creation
+## :rocket: Technologies
+* [Ruby](https://www.ruby-lang.org/en/)
+* [Rails](https://rubyonrails.org/)
+* [Sidekiq](https://sidekiq.org/)
+* [PostgreSql](https://www.postgresql.org/)
+* [Redis](https://redis.io/)
+* [Node](https://nodejs.org/en/)
+* [ReactJS](https://reactjs.org/)
+* [Docker](https://www.docker.com/)
+* [DockerCompose](https://docs.docker.com/compose/)
 
-* Database initialization
+<br>
 
-* How to run the test suite
+## :information_source: Getting Started
+This section provides a quick start guide. If you're looking for the [GETTING_STARTED](README.md), you'll want to refer to our complete Documentation.
 
-* Services (job queues, cache servers, search engines, etc.)
+<br>
 
-* Deployment instructions
+## :memo: License
+This project is under the MIT license. See the [LICENSE](LICENSE.md) for more information.
 
-* ...
+---
