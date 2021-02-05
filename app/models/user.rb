@@ -31,7 +31,7 @@ class User < ApplicationRecord
   def reset_password!(password)
     self.update_columns(
       reset_password_token: nil,
-      password_digest: password
+      password_digest: BCrypt::Password.create(password)
     )
   end
 
