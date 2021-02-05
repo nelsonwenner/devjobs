@@ -26,16 +26,27 @@ Once done, run script/setup. If the script succeeds you're ready to start develo
 $ script/setup
 ```
 
-Now, your dreams of spinning up a development server can be realised:
+you have two options to run the application, one is using the `foreman`, and the other is `manually` uploading the servers.
+  * foreman
+    * install
 
-```bash
-$ bundle exec rails server -p 3333
-```
-Here are some singleton commands you may need, usually in a separate instance/tab of your shell. Running the task's Sidekiq server mainly for email notifications.
+    ```bash
+    $ gem install foreman
+    ```
+    * startup
+    ```bash
+    $ bin/startup
+    ```
+  * manually
+    * startup
+    ```bash
+    $ bundle exec rails server -p 3333
+    ```
+    * Here are some singleton commands you may need, usually in a separate instance/tab of your shell. Running the task's Sidekiq server mainly for email notifications.
 
-```bash
-$ bundle exec sidekiq
-```
+    ```bash
+    $ bundle exec sidekiq
+    ```
 
 Go to [http://localhost:3333](http://localhost:3333) to play around!
 
