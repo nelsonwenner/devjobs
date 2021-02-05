@@ -29,7 +29,7 @@
 * [DockerCompose](https://docs.docker.com/compose/)
 
 ## :information_source: Getting Started
-This section provides a quick start guide. If you're looking for the [GETTING_STARTED](README.md), you'll want to refer to our complete Documentation.
+This section provides a quick start guide. If you're looking for the [GETTING_STARTED](GETTING_STARTED.md), you'll want to refer to our complete Documentation.
 
 ## :memo: License
 This project is under the MIT license. See the [LICENSE](LICENSE.md) for more information.
