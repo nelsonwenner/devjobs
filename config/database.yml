@@ -5,7 +5,7 @@ default: &default
   timeout: 5000
   host: <%= ENV['POSTGRESQL_HOST'] || 'localhost' %>
   port: <%= ENV['POSTGRESQL_PORT'] || 5432 %>
-  username: <%= ENV['POSTGRESQL_USERNAME'] || 'postgres' %>
+  username: <%= ENV['POSTGRESQL_USERNAME'] || 'root' %>
   password: <%= ENV['POSTGRESQL_PASSWORD'] %>
 
 development:
