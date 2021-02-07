@@ -4,22 +4,23 @@ class Company < ApplicationRecord
 
   has_one_attached :brand
   
-  validates_presence_of :name, :url, on: :create
-  validates_presence_of :name, :url, on: :update
+  validates_presence_of :name, :url, on: %i[create update]
 
-  before_save :empty_brand
-  
+  after_commit :add_default_brand, on: %i[create update]
+
   private
 
-  def empty_brand
-    self.brand.attach(
-      io: File.open(
-        Rails.root.join(
-          'app', 'assets', 'images', 'company_default_logo.png'
-        )
-      ),
-        filename: 'company_default_logo.png', 
-        content_type: 'image/png'
-    ) if brand.blank?
+  def add_default_brand
+    unless self.brand.attached?
+      self.brand.attach(
+        io: File.open(
+          Rails.root.join(
+            'app', 'assets', 'images', 'company_default_logo.png'
+          )
+        ),
+          filename: 'company_default_logo.png', 
+          content_type: 'image/png'
+      )
+    end
   end
 end
