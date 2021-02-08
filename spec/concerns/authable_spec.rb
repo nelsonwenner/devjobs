@@ -11,6 +11,7 @@ RSpec.shared_examples 'Authable' do
     
     describe "When logged out" do
       it {
+        session[:user_id] = nil
         expect(subject.logged_in?).to eq(false)
       }
     end
