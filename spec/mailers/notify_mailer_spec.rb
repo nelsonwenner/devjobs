@@ -18,5 +18,9 @@ RSpec.describe NotifyMailer, type: :mailer do
     it 'should be able to render the email from' do
       expect(mail.from).to eq([ ENV["DEFAULT_FROM_EMAIL"] ])
     end
+
+    it 'should be able to find the token' do
+      expect(mail.html_part.body).to match(/#{token}/)
+    end
   end
 end
