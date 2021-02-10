@@ -22,18 +22,13 @@ if ! node --version | grep $NODE_VERSION > /dev/null; then
   exit 1
 fi
 
-# Install all dependencies
-bundle check || bundle install
-npm install
-
 # Set up configurable environment variables
 if [ ! -f ".env" ]; then
   cp .env.example .env
 fi
 
-# Set up the database for both development and test
-printf '\n\n' | bundle exec rails db:create db:migrate
-printf '\n'
+# Install all dependencies
+bin/setup
 
 printf "${YELLOW}WELCOME TO DEVJOBS!\n"
 printf '\n'
