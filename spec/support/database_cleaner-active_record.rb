@@ -7,3 +7,8 @@ RSpec.configure do |config|
     )
   end
 end
+
+DatabaseCleaner.url_allowlist = [
+  'postgresql://root:root@postgres:5432', 
+  'postgresql://root:root@localhost:5432'
+]
