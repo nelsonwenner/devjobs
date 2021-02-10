@@ -1,5 +1,12 @@
 if Rails.env.production?
-  Redis.current = Redis.new(url: ENV["REDIS_URL"])
+  Redis.current = Redis.new(
+    url: ApplicationConfig["REDIS_URL"], 
+    network_timeout: 5
+  )
 else
-  Redis.current = Redis.new(url: ENV["REDIS_URL"], db: 1)
+  Redis.current = Redis.new(
+    url: ApplicationConfig["REDIS_URL"], 
+    network_timeout: 5, 
+    db: 1
+  )
 end
