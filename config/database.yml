@@ -2,19 +2,16 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  url: <%= ENV['DATABASE_URL'] %>
   timeout: 5000
-  host: <%= ENV['POSTGRESQL_HOST'] || 'localhost' %>
-  port: <%= ENV['POSTGRESQL_PORT'] || 5432 %>
-  username: <%= ENV['POSTGRESQL_USERNAME'] || 'root' %>
-  password: <%= ENV['POSTGRESQL_PASSWORD'] %>
 
 development:
   <<: *default
-  database: <%= ENV['POSTGRESQL_DB_DEV'] || 'puppies_app_dev' %>
+  database: <%= ENV['DATABASE_DEV'] || 'puppies_app_dev' %>
 
 test:
   <<: *default
-  database: <%= ENV['POSTGRESQL_DB_TEST'] || 'puppies_app_test' %>
+  database: <%= ENV['DATABASE_TEST'] || 'puppies_app_test' %>
 
 production:
   <<: *default
