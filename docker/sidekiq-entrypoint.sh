@@ -11,10 +11,5 @@ if [ -f tmp/pids/server.pid ]; then
 fi
 
 dockerize -wait tcp://rails-app:3333 -timeout 2700s -wait-retry-interval 10s
-dockerize -wait tcp://postgres:5432 -timeout 2700s -wait-retry-interval 10s
-dockerize -wait tcp://redis:6379 -timeout 2700s -wait-retry-interval 10s
-
-(bundle check || bundle install)
-yarn install
 
 bundle exec sidekiq
