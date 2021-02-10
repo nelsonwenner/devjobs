@@ -2,10 +2,10 @@ module Api
   module V1
     class AuthsController < ApiController
       include Resettable
-      
+
       before_action :authenticate, only: [:logout]
       before_action :set_user, only: [:create]
-      
+
       def create
         if @user && @user.authenticate(user_params[:password])
           session[:user_id] = @user.id
@@ -14,7 +14,7 @@ module Api
           render json: { status: :error, logged_in: false }, status: 400
         end
       end
-      
+
       def logout
         reset_session
 
