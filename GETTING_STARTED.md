@@ -15,7 +15,7 @@ The quickest way to make this work locally is to use Docker, see the Docker setu
 First, you need to create the database user the app will use by manually typing the following in your terminal:
 
 ```bash
-$ sudo -u postgres psql -c "CREATE USER root WITH SUPERUSER CREATEDB PASSWORD 'root@123'"
+$ sudo -u postgres psql -c "CREATE USER root WITH SUPERUSER CREATEDB PASSWORD 'root'"
 ```
 
 This will create the "root" user as superuser and allowing it to create databases. 
@@ -23,32 +23,36 @@ This will create the "root" user as superuser and allowing it to create database
 Once done, run script/setup. If the script succeeds you're ready to start developing. If not, take a look at the output as it should be informative enough to help you troubleshoot.
 
 ```bash
-$ script/setup
+$ scripts/setup
 ```
 
 you have two options to run the application, one is using the `foreman`, and the other is `manually` uploading the servers.
   * foreman
-    * install
-
-    ```bash
-    $ gem install foreman
-    ```
     * startup
-    ```bash
-    $ bin/startup
-    ```
+      ```bash
+      $ bin/startup
+      ```
   * manually
     * startup
-    ```bash
-    $ bundle exec rails server -p 3333
-    ```
-    * Here are some singleton commands you may need, usually in a separate instance/tab of your shell. Running the task's Sidekiq server mainly for email notifications.
+      ```bash
+      $ bundle exec rails server -p 3333
+      ```
+    * Here are some singleton commands you may need, usually in a separate instance/tab of your shell. Running the task's Sidekiq server mainly for email notifications and mailcatcher to verify emails..
+      * Install mailcatcher
+        ```bash
+          $ gem install mailcatcher
+        ```
+      * startup mailcatcher
+        ```bash
+          $ mailcatcher
+        ```
+      * startup sidekiq
+        ```bash
+          $ bundle exec sidekiq
+        ```
 
-    ```bash
-    $ bundle exec sidekiq
-    ```
-
-Go to [http://localhost:3333](http://localhost:3333) to play around!
+- Go to the app [http://localhost:3333](http://localhost:3333) to play around!
+- Mailcatcher [http://localhost:1080](http://localhost:1080) to test sending emails!
 
 ## :toolbox: Testing
 Tests, both unit and integration, are based on RSpec. To run the test suite. Then the main application tests can be run with:
