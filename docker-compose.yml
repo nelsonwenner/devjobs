@@ -12,8 +12,10 @@ services:
       - "3333:3333"
     environment:
       RAILS_ENV: development
+      DATABASE_URL: postgresql://root:root@postgres:5432
+      REDIS_URL: redis://redis:6379/1
+      MAILCATCHER_HOST: mailcatcher
       APP_DOMAIN: rails-app
-      REDIS_URL: redis://redis:6379
     depends_on: 
       - postgres
       - redis
@@ -22,7 +24,7 @@ services:
     networks:
       - app-network
     command: >
-      bash -c "./docker/entrypoint.sh"
+      bash -c "docker/app-entrypoint.sh"
 
   sidekiq:
     build: .
@@ -33,28 +35,36 @@ services:
       - gems:/bundles
     environment:
       RAILS_ENV: development
+      DATABASE_URL: postgresql://root:root@postgres:5432
+      REDIS_URL: redis://redis:6379/1
+      MAILCATCHER_HOST: mailcatcher
       APP_DOMAIN: sidekiq
-      REDIS_URL: redis://redis:6379
     depends_on:
       - rails-app 
-      - postgres
-      - redis
     networks:
       - app-network
     command: >
-      bash -c "./docker/sidekiq-entrypoint.sh"
+      bash -c "docker/sidekiq-entrypoint.sh"
 
   postgres:
     container_name: postgres-container
-    image: library/postgres:9.6-alpine
+    image: postgres:11-alpine
     ports: 
-      - "5431:5432"
+      - "5432:5432"
     volumes: 
       - postgres:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=root
-      - POSTGRES_PASSWORD=root@123
+      - POSTGRES_PASSWORD=root
     restart: always
+    networks: 
+      - app-network
+
+  redis:
+    image: redis:6.0.9-alpine
+    container_name: redis-container
+    ports:
+      - "6379:6379"
     networks: 
       - app-network
 
@@ -62,16 +72,8 @@ services:
     restart: on-failure:10
     image: dockage/mailcatcher:0.7.1
     ports:
-    - "1080:1080"
-    - "1025:1025"
-    networks: 
-      - app-network
-  
-  redis:
-    image: redis:6.0.9-alpine
-    container_name: redis-container
-    ports:
-      - "6379:6379"
+      - "1080:1080"
+      - "1025:1025"
     networks: 
       - app-network
 
