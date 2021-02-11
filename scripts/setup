@@ -30,5 +30,4 @@ fi
 # Install all dependencies
 bin/setup
 
-printf "${YELLOW}WELCOME TO DEVJOBS!\n"
-printf '\n'
+printf "${YELLOW}WELCOME TO DEVJOBS! 🎉\n\n"
